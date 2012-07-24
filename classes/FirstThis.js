@@ -37,8 +37,10 @@ var FirstThis = cc.LayerColor.extend({
         if(typeof(rightSprite)=="object")
             this.addChild(rightSprite);
 
-        sprite.setPosition(new cc.Point(0 + widthOffset,1));
+
         sprite.setScale((newSpriteWidth * sprite.getScaleX())/imageSize.width);
+        sprite.setAnchorPoint(new cc.ccp(0.0,1.0));
+        sprite.setPosition(new cc.Point(0 + widthOffset,cc.Director.sharedDirector().getWinSize().height));
 
     },
     init:function()
