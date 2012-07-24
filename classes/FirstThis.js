@@ -12,7 +12,7 @@ var FirstThis = cc.LayerColor.extend({
         });
 
         var sprite = cc.Sprite.create("/image/" + imgName);//, new cc.Rect(0,0,imageSize.width,imageSize.height));
-
+        sprite.touchesEnded()
         var widthOffset;
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
@@ -43,9 +43,11 @@ var FirstThis = cc.LayerColor.extend({
         sprite.setPosition(new cc.Point(0 + widthOffset,cc.Director.sharedDirector().getWinSize().height));
 
     },
+
     init:function()
     {
         this.initWithColor(cc.ccc4(0,0,0,255));
+
         var that = this;
 
         YUI().use('node',function(Y){
