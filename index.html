@@ -1,0 +1,57 @@
+<html>
+<head>
+    <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+    <script>
+        YUI().use('node','io-base',function(Y){
+
+            Y.on("load", function(){
+                var canvas = Y.DOM.byId('gameCanvas');
+                canvas.setAttribute("width",window.innerWidth);
+                canvas.setAttribute("height", window.innerHeight);
+                Y.Get.script(['/classes/cocos2d.js']);
+
+            });
+
+            Y.io('/getPhotos',{
+                on: {
+                    complete:function(id,response){
+                        var files = JSON.parse(response.responseText);
+                        var firstSel = Y.DOM.byId("firstSel");
+                        var thenSel = Y.DOM.byId("thenSel");
+
+                        for(var key in files)
+                        {
+                            firstSel.options.add(new Option(files[key].description,files[key].name));
+                            thenSel.options.add(new Option(files[key].description,files[key].name));
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</head>
+<body style="padding:0; margin: 0; background: black">
+    <form>
+        <span style="align:left;vertical-align:top;padding-top:0px">
+            <label style="color:white;height:40px;font-size:26;vertical-align:middle">First:</label>
+            <select style="height:40px;font-size:22;width:250" id="firstSel">
+                <option selected>Drop down to choose</option>
+            </select>
+            <label style="color:white;left:300px;height:40px;font-size:26;padding-left:30px;vertical-align: middle;padding-left:100px">Then:</label>
+                <select style="height:40px;font-size:22;width:250" id="thenSel">
+                    <option>Drop down to choose</option>
+            </select>
+        </span>
+        <span style="float:right;vertical-align: top;margin-top:0px;top:0px;">
+            <input align=right type=button value=settings id=settings style="height:40px;font-size:26"
+                  onclick="document.location.href='/settings';"  />
+        </span>
+    </form>
+<div width=100% style="text-align:center;clear:both;">
+	<canvas id="gameCanvas">
+		Your browser does not support the canvas tag
+	</canvas>
+</div>
+</body>
+</html>

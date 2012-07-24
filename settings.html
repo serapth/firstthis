@@ -1,0 +1,138 @@
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/html4/loose.dtd">
+        <html>
+        <head>
+            <title>First This Settings</title>
+            <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+            <script>
+                YUI().use('uploader', function(Y){
+                    var uploader =
+                        new Y.Uploader(
+                                {type:"HTML5",
+                                uploadURL:"/upload/",
+                                multipleFiles:true
+                                }
+                        );
+
+                    uploader.render("#selectFiles");
+
+                    uploader.after("fileselect", function(event){
+                        var files = event.fileList;
+                        var table = Y.one("#filenames tbody");
+
+                        if(files.length > 0)
+                        {
+                            Y.one("#buttonUpload").set("disabled",false);
+                        }
+
+                        Y.each(files,function(file){
+                            table.append("<tr>" +
+                                    "<td>" + file.get("name") + "</td>" +
+                                    "<td>" + file.get("size") + "</td>" +
+                                    "<td><input type=text id=" + file.get("name") + "></td></tr>");
+                        });
+                    });
+
+                    uploader.on("alluploadscomplete", function(event) {
+                        // Hackish page reload
+                        alert("Files added successfully");
+                        Y.one("#buttonUpload").set("disabled",false);
+                        document.location.href="/settings";
+                    });
+
+                    Y.one("#buttonUpload").on("click", function(){
+                        if(uploader.get("fileList").length > 0){
+                            var perFileVars = {};
+                            Y.each(uploader.get("fileList"),function(curFile){
+                                perFileVars[curFile.get("id")] =
+                                {description:Y.DOM.byId(curFile.get("name")).value};
+                            });
+                            uploader.set("postVarsPerFile",
+                                Y.merge(uploader.get("postVarsPerFile"),perFileVars));
+
+                            Y.one("#buttonUpload").set("disabled",true);
+                            uploader.uploadAll();
+                        }
+                    });
+
+
+                });
+
+                YUI().use('io-base','node',function(Y){
+                    Y.io('/getPhotos',{
+                        on: {
+                            complete:function(id,response){
+                                var files = JSON.parse(response.responseText);
+                                Y.log(files);
+                                var table = Y.one("#existingFiles tbody");
+                                for(var key in files)
+                                {
+
+                                    table.append("<tr>" +
+                                            "<td><a href=/image/" + files[key].name + ">"
+                                            + files[key].name + "</a></td>" +
+                                            "<td>" + files[key].size + "</td>" +
+                                            "<td>" + files[key].description + "</td></tr>");
+                                }
+                            }
+                        }
+                    });
+
+                    Y.one("#buttonClear").on("click", function(){
+                        Y.io('/clearAll',{
+                            on:{
+                                complete:function(id,response){
+                                    document.location.href="/settings";
+                                }
+                            }
+                        });
+                    });
+
+                });
+            </script>
+        </head>
+        <body>
+        <form>
+        <div style="border:50px">
+            <div id=selectFiles>
+            </div>
+            <div>
+                <table id="filenames">
+                    <thead><tr>
+                        <th width=350px align=left>File Name</th>
+                        <th align=left>File Size</th>
+                        <th align=left>Description</th>
+                    </tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div align=right>
+                <br /><br />
+                <hr />
+                <button disabled="true" type="button" id="buttonUpload"class="yui3-button"
+                        style="width:250px;height:40px;align:right;">Upload Files</button>
+            </div>
+            <div>
+                <br /><hr />
+                <table id="existingFiles">
+                    <thead><tr>
+                        <th width=150px align=left>File Name</th>
+                        <th align=left width=60px>File Size</th>
+                        <th align=left>Description</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div align=right>
+                <br /><br />
+                <hr />
+                <button type="button" id="buttonHome"class="yui3-button"
+                        onclick="document.location.href='/'"
+                        style="width:250px;height:40px;align:right;">Done</button>
+                <button type="button" id="buttonClear"class="yui3-button"
+                        style="width:250px;height:40px;align:right;">Clear All Files</button>
+            </div>
+        </div>
+
+        </form>
+        </body>
+        </html>
