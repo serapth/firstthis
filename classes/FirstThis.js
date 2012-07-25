@@ -4,7 +4,13 @@ var FirstThis = cc.LayerColor.extend({
     rightSprite:null,
     mode:0,
     imageChanged:function(imgName,whichSprite){
-        this.mode=0;
+        if(this.mode != 0) // We were in transition when select box was changed!
+        {
+            this.leftSprite.setIsVisible(true);
+            this.rightSprite.setIsVisible(true);
+            this.leftSprite.setPosition(new cc.Point(0,cc.Director.sharedDirector().getWinSize().height));
+            this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/2,cc.Director.sharedDirector().getWinSize().height));
+        }
         this.removeAllChildrenWithCleanup(true);
 
         if(this.leftSprite != null && whichSprite=="right")
@@ -28,16 +34,16 @@ var FirstThis = cc.LayerColor.extend({
             this.leftSprite = cc.Sprite.create("/image/" + imgName,new cc.Rect(0,0,imageSize.width,imageSize.height));
             this.addChild(this.leftSprite);
             this.leftSprite.setScale((newSpriteWidth * this.leftSprite.getScaleX())/imageSize.width);
-            this.leftSprite.setAnchorPoint(0,1);
-            this.leftSprite.setPosition(new cc.Point(0,0));
+            this.leftSprite.setAnchorPoint(new cc.Point(0,1));
+            this.leftSprite.setPosition(new cc.Point(0,cc.Director.sharedDirector().getWinSize().height));
         }
         else
         {
             this.rightSprite = cc.Sprite.create("/image/" + imgName, new cc.Rect(0,0,imageSize.width,imageSize.height));
             this.addChild(this.rightSprite);
             this.rightSprite.setScale((newSpriteWidth * this.rightSprite.getScaleX())/imageSize.width);
-            this.rightSprite.setAnchorPoint(0,1);
-            this.rightSprite.setPosition(new cc.Point(newSpriteWidth,0));
+            this.rightSprite.setAnchorPoint(new cc.Point(0,1));
+            this.rightSprite.setPosition(new cc.Point(newSpriteWidth,cc.Director.sharedDirector().getWinSize().height));
         }
     },
     ctor:function()
@@ -69,22 +75,21 @@ var FirstThis = cc.LayerColor.extend({
             this.mode++;
             if(this.mode == 1)
             {
-                //this.leftSprite.setScale((cc.Director.sharedDirector().getWinSize().width * this.leftSprite.getScaleX())/this.leftSprite.getContentSize().width);
                 this.leftSprite.setIsVisible(true);
                 this.rightSprite.setIsVisible(false);
-                this.leftSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/4,0));
+                this.leftSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/4,cc.Director.sharedDirector().getWinSize().height));
             }
             else if(this.mode == 2)
             {
                 this.leftSprite.setIsVisible(false);
                 this.rightSprite.setIsVisible(true);
-                this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/4,0));
+                this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/4,cc.Director.sharedDirector().getWinSize().height));
             }
             else{
                 this.leftSprite.setIsVisible(true);
                 this.rightSprite.setIsVisible(true);
-                this.leftSprite.setPosition(new cc.Point(0,0));
-                this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/2,0));
+                this.leftSprite.setPosition(new cc.Point(0,cc.Director.sharedDirector().getWinSize().height));
+                this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/2,cc.Director.sharedDirector().getWinSize().height));
                 this.mode = 0;
             }
         }
