@@ -6,8 +6,8 @@
 
             Y.on("load", function(){
                 var canvas = Y.DOM.byId('gameCanvas');
-                canvas.setAttribute("width",window.innerWidth);
-                canvas.setAttribute("height", window.innerHeight-50);
+                canvas.setAttribute("width",window.innerWidth-30);
+                canvas.setAttribute("height", window.innerHeight-70);
                 Y.Get.script(['/classes/cocos2d.js']);
 
             });
