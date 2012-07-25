@@ -383,19 +383,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="60" selection-start="689" selection-end="689" vertical-scroll-proportion="-11.769231">
+            <state line="9" column="67" selection-start="379" selection-end="379" vertical-scroll-proportion="0.18106508">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FirstThis.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FirstThis.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/FirstThis.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="35" selection-start="269" selection-end="269" vertical-scroll-proportion="0.15614237">
+            <state line="20" column="91" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -456,9 +456,9 @@
         <option value="$PROJECT_DIR$/classes/cocos2d.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/settings.html" />
         <option value="$PROJECT_DIR$/classes/FirstThis.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -752,16 +752,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/classes/FirstThis.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="60" selection-start="689" selection-end="689" vertical-scroll-proportion="-11.769231">
+        <state line="20" column="91" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/FirstThis.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="35" selection-start="269" selection-end="269" vertical-scroll-proportion="0.15614237">
+        <state line="9" column="67" selection-start="379" selection-end="379" vertical-scroll-proportion="0.18106508">
           <folding />
         </state>
       </provider>
