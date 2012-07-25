@@ -6,10 +6,7 @@ var FirstThis = cc.LayerColor.extend({
     imageChanged:function(imgName,whichSprite){
         if(this.mode != 0) // We were in transition when select box was changed!
         {
-            this.leftSprite.setIsVisible(true);
-            this.rightSprite.setIsVisible(true);
-            this.leftSprite.setPosition(new cc.Point(0,cc.Director.sharedDirector().getWinSize().height));
-            this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/2,cc.Director.sharedDirector().getWinSize().height));
+            this.resetVisibility();
         }
         this.removeAllChildrenWithCleanup(true);
 
@@ -45,6 +42,13 @@ var FirstThis = cc.LayerColor.extend({
             this.rightSprite.setAnchorPoint(new cc.Point(0,1));
             this.rightSprite.setPosition(new cc.Point(newSpriteWidth,cc.Director.sharedDirector().getWinSize().height));
         }
+    },
+    resetVisibility:function()
+    {
+        this.leftSprite.setIsVisible(true);
+        this.rightSprite.setIsVisible(true);
+        this.leftSprite.setPosition(new cc.Point(0,cc.Director.sharedDirector().getWinSize().height));
+        this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/2,cc.Director.sharedDirector().getWinSize().height));
     },
     ctor:function()
     {
@@ -86,10 +90,7 @@ var FirstThis = cc.LayerColor.extend({
                 this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/4,cc.Director.sharedDirector().getWinSize().height));
             }
             else{
-                this.leftSprite.setIsVisible(true);
-                this.rightSprite.setIsVisible(true);
-                this.leftSprite.setPosition(new cc.Point(0,cc.Director.sharedDirector().getWinSize().height));
-                this.rightSprite.setPosition(new cc.Point(cc.Director.sharedDirector().getWinSize().width/2,cc.Director.sharedDirector().getWinSize().height));
+                this.resetVisibility();
                 this.mode = 0;
             }
         }
